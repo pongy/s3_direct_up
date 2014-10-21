@@ -87,7 +87,7 @@ module S3DirectUp
               OpenSSL::Digest::Digest.new('sha1'),
               uploader.fog_credentials[:aws_secret_access_key], encoded_policy
           )
-      ).gsub("\n","")
+      ).gsub("\n","").gsub('+', '%2B').gsub('/', '%2F').gsub('=', '%3D')
     end
 
   end

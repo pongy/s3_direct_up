@@ -78,7 +78,7 @@ module S3DirectUp
     end
 
     def encoded_policy
-      Base64.encode64(policy_raw.to_json).gsub("\n", '')
+      Base64.encode64(policy_raw.to_json).gsub(/\n|\r/, '')
     end
 
     def signature
@@ -87,7 +87,7 @@ module S3DirectUp
               OpenSSL::Digest::Digest.new('sha1'),
               uploader.fog_credentials[:aws_secret_access_key], encoded_policy
           )
-      ).gsub("\n","").gsub('+', '%2B').gsub('/', '%2F').gsub('=', '%3D')
+      ).gsub(/\n/,'') #.gsub('+', '%2B').gsub('/', '%2F').gsub('=', '%3D')
     end
 
   end
